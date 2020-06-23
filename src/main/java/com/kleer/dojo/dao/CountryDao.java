@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface CountryDao extends JpaRepository<CountryEntity, Integer> {
     Optional<Collection<CountryEntity>> findByStatus(RegisterStatusEnum registerStatusEnum);
+    Optional<CountryEntity> findByCountryIdAndStatus(Integer id, RegisterStatusEnum registerStatusEnum);
 }

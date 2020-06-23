@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface CountryService {
     Optional<Collection<CountryEntity>> findByStatus(RegisterStatusEnum registerStatusEnum);
+    Optional<CountryEntity> findByCountryIdAndStatus(Integer id, RegisterStatusEnum registerStatusEnum);
 }

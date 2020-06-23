@@ -20,4 +20,9 @@ public class CountryServiceImpl implements CountryService{
     public Optional<Collection<CountryEntity>> findByStatus(RegisterStatusEnum registerStatusEnum) {
         return this.countryDao.findByStatus(registerStatusEnum);
     }
+
+    @Override
+    public Optional<CountryEntity> findByCountryIdAndStatus(Integer id, RegisterStatusEnum registerStatusEnum) {
+        return this.countryDao.findByCountryIdAndStatus(id, registerStatusEnum);
+    }
 }
