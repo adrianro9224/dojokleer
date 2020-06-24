@@ -1,5 +1,6 @@
 package com.kleer.dojo.controller;
 
+import com.kleer.dojo.domain.AssessmentSummaryRadarChart;
 import com.kleer.dojo.domain.BodyResponseBase;
 import com.kleer.dojo.entity.AssessmentAnswerEntity;
 import com.kleer.dojo.entity.AssessmentEntity;
@@ -16,11 +17,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(name = "/assessment")
+@RequestMapping("/assessment")
 public class AssessmentController {
 
     private final AssessmentService assessmentService;
@@ -119,6 +122,28 @@ public class AssessmentController {
                         ),
                         HttpStatus.BAD_REQUEST);
             }
+        }
+    }
+
+    @GetMapping("/{assessmentId}/summary")
+    public ResponseEntity<BodyResponseBase> getAssessmentSummaryByAssessmentId(
+            @PathVariable("assessmentId") Integer assessmentId
+    ){
+        Optional<Collection<AssessmentAnswerEntity>> optionalAssessmentAnswerEntities =
+                this.assessmentAnswerService.findByAssessmentIdAndStatus(assessmentId, RegisterStatusEnum.ACTIVE);
+        if(!optionalAssessmentAnswerEntities.isPresent()){
+            return ResponseEntity.noContent().build();
+        }else {
+            Collection<AssessmentAnswerEntity> assessmentAnswerEntities = optionalAssessmentAnswerEntities.get();
+            return ResponseEntity.ok(
+                    new BodyResponseBase(
+                            new AssessmentSummaryRadarChart(
+                                    assessmentAnswerEntities,
+                                    "Assessment:" + assessmentAnswerEntities.stream().collect(Collectors.toList()).get(0).getAssessmentEntity().getEmail()
+                            ),
+                            "Assessment completed"
+                    )
+            );
         }
     }
 }

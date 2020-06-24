@@ -13,7 +13,7 @@ public class AssessmentAnswerEntity extends AbstractEntity{
     @Column(name = "assessment_answer_id", nullable = false, unique = true)
     private Integer assessmentAnswerId;
 
-    @Column(name = "question_answer_id", nullable = false)
+    @Column(name = "question_answer_id", nullable = false, updatable = false, insertable = false)
     private Integer questionAnswerId;
 
     @JsonBackReference
@@ -21,7 +21,7 @@ public class AssessmentAnswerEntity extends AbstractEntity{
     @JoinColumn(name = "question_answer_id")
     private QuestionAnswerEntity questionAnswerEntity;
 
-    @Column(name = "assessment_id", nullable = false)
+    @Column(name = "assessment_id", nullable = false, updatable = false, insertable = false)
     private Integer assessmentId;
 
     @JsonBackReference
