@@ -139,7 +139,7 @@ public class AssessmentController {
                     new BodyResponseBase(
                             new AssessmentSummaryRadarChart(
                                     assessmentAnswerEntities,
-                                    "Assessment:" + assessmentAnswerEntities.stream().collect(Collectors.toList()).get(0).getAssessmentEntity().getEmail()
+                                    "Assessment: " + assessmentAnswerEntities.stream().collect(Collectors.toList()).get(0).getAssessmentEntity().getEmail()
                             ),
                             "Assessment completed"
                     )

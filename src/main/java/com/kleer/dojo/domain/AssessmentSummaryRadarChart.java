@@ -5,7 +5,6 @@ import com.kleer.dojo.entity.AssessmentAnswerEntity;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
 
 public class AssessmentSummaryRadarChart {
     private Collection<String> categoryLabels;

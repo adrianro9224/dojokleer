@@ -38,3 +38,4 @@ out/
 #Key pairs
 *.pem
 *.der
+db-dat/
