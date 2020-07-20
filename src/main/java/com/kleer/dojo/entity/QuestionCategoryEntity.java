@@ -24,7 +24,7 @@ public class QuestionCategoryEntity extends AbstractEntity{
     @OneToMany(mappedBy = "questionCategoryEntity")
     private Collection<QuestionEntity> questionEntities;
     
-    @Column(name = "order", nullable = false, unique = true)
+    @Column(name = "order_", unique = true)
     private Integer order;
 
     public QuestionCategoryEntity() {
