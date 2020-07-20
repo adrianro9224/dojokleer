@@ -1,10 +1,11 @@
 package com.kleer.dojo.domain;
 
 import com.kleer.dojo.entity.AssessmentAnswerEntity;
+import com.kleer.dojo.entity.QuestionCategoryEntity;
+import org.springframework.util.comparator.Comparators;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class AssessmentSummaryRadarChart {
     private Collection<String> categoryLabels;
@@ -25,14 +26,20 @@ public class AssessmentSummaryRadarChart {
         this.data = new LinkedList<>();
         this.label = label;
         HashMap<String, Integer> categoryPoints = new HashMap<>();
+        List<QuestionCategoryEntity> categories = new LinkedList<>();
         assessmentAnswerEntities.forEach(assessmentAnswerEntity -> {
+            categories.add(assessmentAnswerEntity.getQuestionAnswerEntity().getQuestionEntity().getQuestionCategoryEntity());
             categoryPoints.put(
                     assessmentAnswerEntity.getQuestionAnswerEntity().getQuestionEntity().getQuestionCategoryEntity().getCategoryName(),
                     assessmentAnswerEntity.getQuestionAnswerEntity().getBrings()
             );
         });
-        this.categoryLabels = categoryPoints.keySet();
-        this.data = categoryPoints.values();
+        categories.stream()
+            .sorted((questionCategoryEntity, t1) -> questionCategoryEntity.getOrder().compareTo(t1.getOrder()))
+            .forEach(questionCategoryEntity -> {
+                this.categoryLabels.add(questionCategoryEntity.getCategoryName());
+                this.data.add(categoryPoints.get(questionCategoryEntity.getCategoryName()));
+            });
     }
 
     public Collection<String> getCategoryLabels() {

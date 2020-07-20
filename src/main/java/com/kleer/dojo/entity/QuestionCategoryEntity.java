@@ -23,14 +23,18 @@ public class QuestionCategoryEntity extends AbstractEntity{
     @JsonManagedReference
     @OneToMany(mappedBy = "questionCategoryEntity")
     private Collection<QuestionEntity> questionEntities;
+    
+    @Column(name = "order", nullable = false, unique = true)
+    private Integer order;
 
     public QuestionCategoryEntity() {
     }
 
-    public QuestionCategoryEntity(RegisterStatusEnum status, String categoryName, String categoryDescription) {
+    public QuestionCategoryEntity(RegisterStatusEnum status, String categoryName, String categoryDescription, Integer order) {
         super(status);
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
+        this.order = order;
     }
 
     public Integer getQuestionCategoryId() {
@@ -63,5 +67,13 @@ public class QuestionCategoryEntity extends AbstractEntity{
 
     public void setQuestionEntities(Collection<QuestionEntity> questionEntities) {
         this.questionEntities = questionEntities;
+    }
+    
+    public Integer getOrder() {
+        return order;
+    }
+    
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 }
