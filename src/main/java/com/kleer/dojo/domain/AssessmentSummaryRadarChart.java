@@ -2,10 +2,11 @@ package com.kleer.dojo.domain;
 
 import com.kleer.dojo.entity.AssessmentAnswerEntity;
 import com.kleer.dojo.entity.QuestionCategoryEntity;
-import org.springframework.util.comparator.Comparators;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class AssessmentSummaryRadarChart {
     private Collection<String> categoryLabels;

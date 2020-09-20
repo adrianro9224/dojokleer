@@ -24,7 +24,7 @@ public class CountryController {
     }
 
     @GetMapping("/status/{registerStatus}")
-    public ResponseEntity<BodyResponseBase> getByStatus(@PathVariable("registerStatus")RegisterStatusEnum registerStatusEnum){
+    public ResponseEntity<BodyResponseBase> getByStatus(@PathVariable("registerStatus") RegisterStatusEnum registerStatusEnum){
         Optional<Collection<CountryEntity>> collectionOptional = this.countryService.findByStatus(registerStatusEnum);
         if(!collectionOptional.isPresent()) {
             return ResponseEntity.noContent().build();
