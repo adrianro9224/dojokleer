@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.2.6.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'com.kleer'
@@ -28,6 +29,52 @@ dependencies {
 	testImplementation 'junit:junit:4.12'
 }
 
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			element = 'CLASS'
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 0.8
+			}
+			excludes = [
+					'com.kleer.dojo.configuration.*',
+					'com.kleer.dojo.component.*',
+					'com.kleer.dojo.dao.*',
+					'com.kleer.dojo.domain.*',
+					'com.kleer.dojo.entity.*',
+					'com.kleer.dojo.enums.*',
+					'com.kleer.dojo.exceptions.*',
+					'com.kleer.dojo.payload.*',
+					'com.kleer.dojo.service.*',
+					'com.kleer.dojo.DojoApplication'
+			]
+		}
+	}
+}
+
+jacocoTestReport {
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, exclude: [
+					'com/kleer/dojo/component',
+					'com/kleer/dojo/configuration',
+					'com/kleer/dojo/dao',
+					'com/kleer/dojo/domain',
+					'com/kleer/dojo/entity',
+					'com/kleer/dojo/enums',
+					'com/kleer/dojo/exceptions',
+					'com/kleer/dojo/payload',
+					'com/kleer/dojo/service',
+					'com/kleer/dojo/DojoApplication.class'
+			]
+			)
+		}))
+	}
+}
+
 test {
 	useJUnitPlatform()
+	finalizedBy jacocoTestReport
 }
